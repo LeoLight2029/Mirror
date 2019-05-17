@@ -1,5 +1,7 @@
 import discord
 from discord import Webhook, AsyncWebhookAdapter
+from discord import ext
+from discord.ext import commands
 import asyncio
 import sys
 import requests
@@ -7,7 +9,7 @@ import aiohttp
 import io
 
 client = discord.Client()
-token = "put ur token here"
+token = "ur token here"
 
 fromchannel = int(sys.argv[1])
 webtoken = sys.argv[2]
@@ -31,10 +33,10 @@ async def on_message(message):
                 await attachment.save(fp)
                 async with aiohttp.ClientSession() as session:
                     webhook = Webhook.from_url(webtoken, adapter=AsyncWebhookAdapter(session))
-                    await webhook.send(content=message.content, username=message.author.display_name, avatar_url=message.author.avatar_url, file=discord.File(fp, filename=attachment.filename))
+                    await webhook.send(content=message.clean_content, username=message.author.display_name, avatar_url=message.author.avatar_url, file=discord.File(fp, filename=attachment.filename))
         else:
             async with aiohttp.ClientSession() as session:
                 webhook = Webhook.from_url(webtoken, adapter=AsyncWebhookAdapter(session))
-                await webhook.send(content=message.content, username=message.author.display_name, avatar_url=message.author.avatar_url)
+                await webhook.send(content=message.clean_content, username=message.author.display_name, avatar_url=message.author.avatar_url)
 
 client.run(token, bot=False)
