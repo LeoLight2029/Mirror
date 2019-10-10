@@ -11,6 +11,7 @@ import gc
 
 client = discord.Client()
 token = "Ur token here"
+blacklistedwebhook = ["idofwebhook1", "idofwebhook2"]
 
 fromchannel = int(sys.argv[1])
 webtoken = sys.argv[2]
@@ -24,7 +25,7 @@ async def on_ready():
 async def on_message(message):
     gc.collect()
     fchannel = client.get_channel(fromchannel)
-    if message.channel == fchannel:
+    if message.channel == fchannel and message.webhook_id not in blacklistedwebhook:
         attach = message.attachments
         sentembed = message.embeds
         print ("Forwarding this message: "+ message.content)
