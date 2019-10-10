@@ -7,9 +7,10 @@ import sys
 import requests
 import aiohttp
 import io
+import gc
 
 client = discord.Client()
-token = "ur token here"
+token = "Ur token here"
 
 fromchannel = int(sys.argv[1])
 webtoken = sys.argv[2]
@@ -21,6 +22,7 @@ async def on_ready():
 
 @client.event
 async def on_message(message):
+    gc.collect()
     fchannel = client.get_channel(fromchannel)
     if message.channel == fchannel:
         attach = message.attachments
