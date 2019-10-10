@@ -23,23 +23,24 @@ async def on_ready():
 
 @client.event
 async def on_message(message):
-    gc.collect()
     fchannel = client.get_channel(fromchannel)
-    if message.channel == fchannel and message.webhook_id not in blacklistedwebhook:
-        attach = message.attachments
-        sentembed = message.embeds
-        print ("Forwarding this message: "+ message.content)
-        if attach:
-            for attachment in attach:
-                print (attachment)
-                fp = io.BytesIO()
-                await attachment.save(fp)
+    if message.channel == fchannel:
+        if message.webhook_id == None or message.webhook_id not in blacklistedwebhook:
+            attach = message.attachments
+            sentembed = message.embeds
+            print ("Forwarding this message: "+ message.content)
+            print(message.webhook_id)
+            if attach:
+                for attachment in attach:
+                    print (attachment)
+                    fp = io.BytesIO()
+                    await attachment.save(fp)
+                    async with aiohttp.ClientSession() as session:
+                        webhook = Webhook.from_url(webtoken, adapter=AsyncWebhookAdapter(session))
+                        await webhook.send(content=message.clean_content, username=message.author.display_name, avatar_url=message.author.avatar_url, file=discord.File(fp, filename=attachment.filename))
+            else:
                 async with aiohttp.ClientSession() as session:
                     webhook = Webhook.from_url(webtoken, adapter=AsyncWebhookAdapter(session))
-                    await webhook.send(content=message.clean_content, username=message.author.display_name, avatar_url=message.author.avatar_url, file=discord.File(fp, filename=attachment.filename))
-        else:
-            async with aiohttp.ClientSession() as session:
-                webhook = Webhook.from_url(webtoken, adapter=AsyncWebhookAdapter(session))
-                await webhook.send(content=message.clean_content, username=message.author.display_name, avatar_url=message.author.avatar_url)
+                    await webhook.send(content=message.clean_content, username=message.author.display_name, avatar_url=message.author.avatar_url)
 
 client.run(token, bot=False)
