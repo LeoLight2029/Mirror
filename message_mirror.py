@@ -29,7 +29,7 @@ async def on_message(message):
             attach = message.attachments
             sentembed = message.embeds
             print ("Forwarding this message: "+ message.content)
-            print(message.webhook_id)
+            #print(message.webhook_id)
             if attach:
                 for attachment in attach:
                     print (attachment)
