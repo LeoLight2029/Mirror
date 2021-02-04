@@ -37,10 +37,10 @@ async def on_message(message):
                     await attachment.save(fp)
                     async with aiohttp.ClientSession() as session:
                         webhook = Webhook.from_url(webtoken, adapter=AsyncWebhookAdapter(session))
-                        await webhook.send(content=message.clean_content, username=message.author.display_name, avatar_url=message.author.avatar_url, file=discord.File(fp, filename=attachment.filename))
+                        await webhook.send(content=message.clean_content, username=message.author.display_name, avatar_url=message.author.avatar_url, file=discord.File(fp, filename=attachment.filename), embeds=sentembed)
             else:
                 async with aiohttp.ClientSession() as session:
                     webhook = Webhook.from_url(webtoken, adapter=AsyncWebhookAdapter(session))
-                    await webhook.send(content=message.clean_content, username=message.author.display_name, avatar_url=message.author.avatar_url)
+                    await webhook.send(content=message.clean_content, username=message.author.display_name, avatar_url=message.author.avatar_url, embeds=sentembed)
 
 client.run(token, bot=False)
