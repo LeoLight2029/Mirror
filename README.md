@@ -3,7 +3,7 @@ it will send messages from a channel to another via a webhook!
 
 /!\ if you want to use a bot token instead of a user token, replace `bot=False` by `bot=True` in the last line of the script
 
-###### Doc for message_mirror_multi.py
+#### Doc for message_mirror_multi.py
 
 This script allows to use mirror multiple channels with only 1 instance of the script running (and it works even with just 1 channel being mirrored)  
 I recommend using this script over message_mirror.py
@@ -21,7 +21,7 @@ When a message gets sent in the channel with the id 111111111111111111, this mes
 To add a mirrored channel, simply add a new line with the channel id (without quotes), :, and the webhook url (between quotes). Also don't forget to add a , at the end of the line
 
 
-###### Doc for message_mirror.py
+#### Doc for message_mirror.py
 
 open it by calling it like this: 
 
@@ -31,7 +31,7 @@ open it by calling it like this:
 ex: `python "message_mirror.py" 578257710013874186 "https://discordapp.com/api/webhooks/578257910442885181/Jgfig2bKJaaXHf_JE3a3_-uEYNI63fttFkr_vxhHCSX40kUmHNstDFcsNN-druADIdds"`
 
 
-###### About blacklisted webhoooks
+#### About blacklisted webhoooks
 If you want to make a thing that mirror messages both way, just add another line but using the other channel's id and the a webhook in the other channel<br/>
 If you do that you'll also need to add the webhooks to the blacklist:<br/>
 to do that, edit your py file and replace idofwebhook1 and idofwebhook2 by the ids of the webhooks<br/>
