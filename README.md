@@ -8,7 +8,8 @@ it will send messages from a channel to another via a webhook!
 This script allows to use mirror multiple channels with only 1 instance of the script running (and it works even with just 1 channel being mirrored)  
 I recommend using this script over message_mirror.py
 
-Open the script and input your token, as well as the blacklisted webhooks (if any, see below for more infos), and the mirrored channels and corresponding webhooks in the dict.  
+Before running the script, open the script and input your token, as well as the blacklisted webhooks (if any, see below for more infos), and the mirrored channels and corresponding webhooks in the dict. Then you can just open the script as you would with any other py file
+
 For python newbies, here is how the dict works
 ```python
 {
